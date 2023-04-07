@@ -1,45 +1,23 @@
 
-
- <?php
-if(isset($_POST['username'])){
-    $server = "localhost";
-    $username = "root";
-    $password = "";
-     $db="logindb";
-   
-    $con = mysqli_connect($server, $username, $password,$db);
-
-
-    if(!$con){
-        die("connection to database failed due to ".mysqli_connect_error());
-    }
-    else{
-
-        if(isset($_POST['username'])){
-            $uName=$_POST['username'];
-
+<?php
+$checkUserExist=false;
+ // import   database connection from connection.php
+ include 'connection.php';
+ if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $uName=$_POST['username'];
         $uPass=$_POST['password'];
-            $sql = "SELECT * FROM `loginform` where User='$uName' and Pass='$uPass'";
 
-
-           $result=$con->query($sql);
-
+        $sql = "SELECT * FROM `loginform` where User='$uName' and Pass='$uPass'"; //0 
+        $result=$con->query($sql);
         if($result->num_rows >0){
-            header('Location: adminHome.php');
-            
-        }
-        
+            header('Location: adminHome.php');            
+        }      
         else{
-            echo "Invalid username and password"; header('Location: login.php');
+            $checkUserExist=true;  
+            header('Location: login.php');
         }
         }
-       
 
-        
-
-
-    }
-    }
 ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -57,17 +35,26 @@ if(isset($_POST['username'])){
 <div class="container">
  	<div class="header">
  		<h1>Admin login</h1>
+         <h1> <?php
+        if($checkUserExist==false){
+            echo "<p></p>";
+        }
+        else{
+        //   echo "New record created successfully";
+            echo "<p><b>Invalid username and passwordS</b></p>";
+        }     
+        ?></h1>
  	</div>
  	<div class="main">
  		<form method="POST" input="login.php">
          
  			<span>
  				<i class="fa fa-user"></i>
- 				<input class="input" type="text" placeholder="User Name" name="username">
+ 				<input class="input" type="text" placeholder="User Name" name="username" required>
  			</span><br>
  			<span>
  				<i class="fa fa-lock"></i>
- 				<input class="input" type="password" placeholder="Password" name="password">
+ 				<input class="input" type="password" placeholder="Password" name="password" required>
  			</span><br>
  				<button type = "submit" >login</button>
 
@@ -77,4 +64,3 @@ if(isset($_POST['username'])){
         </form>
     </div>
 </body>
-</html>

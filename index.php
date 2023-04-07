@@ -1,37 +1,25 @@
 <?php
     $submitMessage=false;
-    if(isset($_POST['name'])){
-      $server = "localhost";
-      $username = "root";
-      $password = "";
-       $db="logindb";
-      $con = mysqli_connect($server, $username, $password,$db);
-
-    if(!$con){
-        die("connection to database failed due to ".mysqli_connect_error());
-    }
-    else{
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        // import   database connection from connection.php
+      include 'connection.php';
         //echo "<h1>Successfully connected to DB<h1>";
-        $name=$_POST['name'];
+          $name=$_POST['name'];
           $email=$_POST['email'];
           $mobile=$_POST['mobile'];
           $message=$_POST['message'];
-        if($name!=""){
-          
-            $sql= "INSERT INTO `contactus`(`name`, `email`, `phone`, `message`) VALUES ('$name', '$email', '$mobile', '$message' )";     
-
-        
+        // Sql query for insertion 
+          $sql= "INSERT INTO `contactus`(`name`, `email`, `phone`, `message`) VALUES ('$name', '$email', '$mobile', '$message' )";          
         
         if ($con->query($sql) == true) {
-          $submitMessage=true;
-          
+          $submitMessage=true;         
         } else {
-          echo "Error: " . $sql . "<br>" . $conn->error;
+          echo "Error: " . $sql . "<br>" . $con->error;
         }
         $con->close();
-        }
+
       } 
-    } 
+    
 ?>
 
 
@@ -58,28 +46,23 @@
           echo "New record created successfully";
             echo "<p><b>Thanks For Contacting US</b></p>";
 
-        }
-
-        
+        }     
         ?></h1>
 
- 
 
 
   <br>
   <br>
   <br>
-  <form class="contact-form" action="index.php" method="POST">
-    <input type="text" class="contact-form-text" placeholder="Your name" name="name">
-    <input type="email" class="contact-form-text" placeholder="Your email" name="email">
-    <input type="text" class="contact-form-text" placeholder="Your phone" name="mobile">
-    <textarea class="contact-form-text" placeholder="Your message" name="message"></textarea>
+  <form class="contact-form"  method="POST">
+    <input type="text" class="contact-form-text" placeholder="Your name" name="name" required>
+    <input type="email" class="contact-form-text" placeholder="Your email" name="email" required>
+    <input type="text" class="contact-form-text" placeholder="Your phone" name="mobile" required>
+    <textarea class="contact-form-text" placeholder="Your message" name="message" required></textarea>
     <button type = "submit" class="contact-form-btn">Send</button>
-    <button type = "button" class="contact-form-btn-2"> <a href="login.php">Login</a> </button>
+    <button type = "button" class="contact-form-btn-2" > <a href="login.php">Login</a> </button>
 
   </form>
 </div>
-
-
   </body>
 </html>

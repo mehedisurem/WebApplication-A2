@@ -24,19 +24,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-					<td data-label='id'>1</td>
-					<td data-label='name'>Surem</td>
-					<td data-label='email'>2030069@iub.edu.bd</td>
-					<td data-label='phone'>15658947</td>
-					<td data-label='message'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi consectetur et qui adipisci maiores facere?</td>
 				</tr>
 				<?php
-                $server = "localhost";
-                $username = "root";
-                $password = "";
-                $db= "logindb";
-                $con = mysqli_connect($server, $username, $password, $db);
+				 // import   database connection from connection.php
+				 include 'connection.php';
                 $sql = "SELECT * FROM `contactus`";
          
                 $result=$con->query($sql);
@@ -58,3 +49,5 @@
 </body>
 </html>
 <!-- //C:\xampp\htdocs\CSC450Assignment2\adminHome.php -->
+
+

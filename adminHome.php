@@ -24,7 +24,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				</tr>
+				
 				<?php
 				 // import   database connection from connection.php
 				 include 'connection.php';

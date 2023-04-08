@@ -60,8 +60,7 @@
     <input type="text" class="contact-form-text" placeholder="Your phone" name="mobile" required>
     <textarea class="contact-form-text" placeholder="Your message" name="message" required></textarea>
     <button type = "submit" class="contact-form-btn">Send</button>
-    <button type = "button" class="contact-form-btn-2" > <a href="login.php">Login</a> </button>
-
+    <a class="contact-form-btn-2" href="login.php">Login</a>
   </form>
 </div>
   </body>
